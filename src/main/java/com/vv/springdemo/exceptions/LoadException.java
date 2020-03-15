@@ -1,4 +1,4 @@
-package com.vv.springdemo;
+package com.vv.springdemo.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
