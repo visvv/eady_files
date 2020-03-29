@@ -5,7 +5,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>easy-server</module>
-		<module>sample</module>
+		<module>easy-client</module>
 	</modules>
 	<groupId>com.vv</groupId>
 	<artifactId>easy-files</artifactId>
