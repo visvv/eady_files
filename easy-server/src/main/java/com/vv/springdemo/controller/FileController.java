@@ -2,7 +2,6 @@ package com.vv.springdemo.controller;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,27 +18,29 @@ import java.util.stream.Collectors;
 @Controller
 public class FileController {
 
-    private final static String FILE_STORE = "file_store";
+    private final static String FILE_STORE = System.getProperty("user.home");
 
     @RequestMapping(value = "upload", method = RequestMethod.POST)
     public ResponseEntity<String> upload(@RequestParam("file")MultipartFile multipartFile) {
         System.out.println(multipartFile.getOriginalFilename());
+        String message = "";
         try {
             File file = new File(multipartFile.getOriginalFilename());
             multipartFile.transferTo(Paths.get(FILE_STORE, file.getName()));
-            System.out.println(multipartFile.getSize());
-            System.out.println(file.getCanonicalPath());
+            message = "Upload completed successfully " + file.getName() + " - " + (file.length()/(1024));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<String>(HttpStatus.ACCEPTED);
-
+        return ResponseEntity.ok().body(message);
     }
 
     @GetMapping("list")
     public ResponseEntity<String> list(){
         File file = new File(FILE_STORE);
         String[] files = file.list();
+        if(files == null) {
+            files = new String[0];
+        }
         return  ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(Arrays.asList(files).stream().collect(Collectors.joining("\n")));
     }
