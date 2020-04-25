@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
+import java.util.List;
 import static com.vv.easy.server.controller.AbstractController.APPLICATION_JSON;
 
 @RestController
@@ -26,10 +23,7 @@ public class MetadataController {
 
     @GetMapping(value = "/list", produces = APPLICATION_JSON)
     public Message list() {
-        System.out.println("XXX");
-        File file = new File(FileController.FILE_STORE);
-        return new Message<String>(Arrays.stream(file.listFiles())
-                .map((f) -> f.getName()).collect(Collectors.joining(",")));
+        return new Message<List<FileInfo>>(this.fileService.getFileList("/"));
     }
 
     @GetMapping(value = "/info", produces = APPLICATION_JSON)
