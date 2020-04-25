@@ -1,10 +1,10 @@
-package com.vv.springdemo.exceptions;
+package com.vv.easy.server.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class LoadException extends Exception {
+public class LoadException extends RuntimeException {
     public LoadException() {
     }
 

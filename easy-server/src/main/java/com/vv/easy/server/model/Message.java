@@ -1,19 +1,16 @@
-package com.vv.springdemo.model;
+package com.vv.easy.server.model;
 
-public class Message {
-    private String content;
+public class Message<T> {
+    private T content;
 
-    public Message(String content) {
+    public Message(T content) {
         this.content = content;
     }
 
-    public String getContent() {
+    public T getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
 
     @Override
     public boolean equals(Object o) {
